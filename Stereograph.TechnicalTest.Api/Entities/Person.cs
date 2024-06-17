@@ -14,6 +14,11 @@ namespace Stereograph.TechnicalTest.Api.Entities
         private string _address;
         private string _city;
 
+        public Person()
+        {
+            
+        }
+
         public Person(string firstName, string lastName, string email, string address, string city)
         {
             FirstName = firstName;
