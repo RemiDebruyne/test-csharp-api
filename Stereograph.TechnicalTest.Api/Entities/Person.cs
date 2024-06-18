@@ -16,7 +16,7 @@ namespace Stereograph.TechnicalTest.Api.Entities
 
         public Person()
         {
-            
+
         }
 
         public Person(string firstName, string lastName, string email, string address, string city)
@@ -28,6 +28,7 @@ namespace Stereograph.TechnicalTest.Api.Entities
             City = city;
         }
         [Key]
+        [Ignore]
         public int Id { get => _id; set => _id = value; }
         [Name("first_name")]
         public string FirstName { get => _firstName; set => _firstName = value; }

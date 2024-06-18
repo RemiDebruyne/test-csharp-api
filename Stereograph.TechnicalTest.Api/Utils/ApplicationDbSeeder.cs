@@ -16,8 +16,14 @@ namespace Stereograph.TechnicalTest.Api.Utils
             using (StreamReader reader = new StreamReader("./Ressources/Persons.csv"))
             using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
-                csv.Context.RegisterClassMap<PersonMap>();
+                int id = 1;
+                //csv.Context.RegisterClassMap<PersonMap>();
                 List<Person> record = csv.GetRecords<Person>().ToList();
+                foreach(Person person in record)
+                {
+                    person.Id = id;
+                    id++;
+                }
                 return record;
             };
         }

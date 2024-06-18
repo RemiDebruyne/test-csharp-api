@@ -21,6 +21,8 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Person>().Property(e => e.Id).ValueGeneratedOnAdd();
+
         var data = _seeder.Seed();
         modelBuilder.Entity<Person>().HasData(data);
     }
