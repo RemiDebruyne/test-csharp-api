@@ -5,8 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-
+using Stereograph.TechnicalTest.Api.Entities;
 using Stereograph.TechnicalTest.Api.Models;
+using Stereograph.TechnicalTest.Api.Repositories;
 using Stereograph.TechnicalTest.Api.Utils;
 using System;
 
@@ -42,6 +43,8 @@ public class Startup
             .AddControllers();
 
         services.AddScoped<ApplicationDbSeeder>();
+
+        services.AddScoped<IRepository<PersonRepository>>();
     }
 
     public void Configure(IApplicationBuilder application, IWebHostEnvironment environment)
