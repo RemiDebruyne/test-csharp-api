@@ -64,17 +64,13 @@ namespace Stereograph.TechnicalTest.Api.Repositories
         {
             var entityFromDb = await Get(e => e.Id == entity.Id);
 
-            if (entityFromDb == null)
-                return null;
-
             Type entityType = entity.GetType();
-
             PropertyInfo[] entityProperties = entityType.GetProperties();
 
             foreach (var prop in entityProperties)
             {
-                var propertyValue = prop.GetValue(entity);
-                var propertyValueFromDb = prop.GetValue(entityFromDb);
+                var propertyValue = prop.GetValue(entity, null);
+                var propertyValueFromDb = prop.GetValue(entityFromDb, null);
 
                 if (propertyValueFromDb != propertyValue)
                     propertyValueFromDb = propertyValue;
@@ -84,8 +80,6 @@ namespace Stereograph.TechnicalTest.Api.Repositories
                 return null;
 
             return entityFromDb;
-
-
         }
     }
 }

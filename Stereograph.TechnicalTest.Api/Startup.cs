@@ -44,7 +44,7 @@ public class Startup
 
         services.AddScoped<ApplicationDbSeeder>();
 
-        services.AddScoped<IRepository<PersonRepository>>();
+        services.AddScoped<IRepository<Person>, PersonRepository>();
     }
 
     public void Configure(IApplicationBuilder application, IWebHostEnvironment environment)
