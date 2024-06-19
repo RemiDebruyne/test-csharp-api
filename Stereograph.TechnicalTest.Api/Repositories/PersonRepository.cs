@@ -62,24 +62,12 @@ namespace Stereograph.TechnicalTest.Api.Repositories
 
         public async Task<Person> Update(Person entity)
         {
-            var entityFromDb = await Get(e => e.Id == entity.Id);
 
-            Type entityType = entity.GetType();
-            PropertyInfo[] entityProperties = entityType.GetProperties();
-
-            foreach (var prop in entityProperties)
-            {
-                var propertyValue = prop.GetValue(entity, null);
-                var propertyValueFromDb = prop.GetValue(entityFromDb, null);
-
-                if (propertyValueFromDb != propertyValue)
-                    propertyValueFromDb = propertyValue;
-            }
-
+            _context.Persons.Update(entity);
             if (await _context.SaveChangesAsync() == 0)
                 return null;
 
-            return entityFromDb;
+            return entity;
         }
     }
 }

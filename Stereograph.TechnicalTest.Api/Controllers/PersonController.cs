@@ -58,25 +58,19 @@ public class PersonController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] Person person)
     {
-        Person personFromDb = await _repository.Get(p => p.Id == id);
+        //Person personFromDb = await _repository.Get(person => person.Id == id);
+        //if (personFromDb == null)
+        //    return NotFound();
 
-        if (personFromDb == null)
-        {
-            return BadRequest("No user was found with this id");
-        }
+        if (person.Id != id)
+            return BadRequest();
 
-        person.Id = id;
+        Person updatedPerson = await _repository.Update(person);
 
-        Person personUpdated = await _repository.Update(person);
+        if(updatedPerson == null)
+            return BadRequest();
 
-        if (personUpdated == null)
-        {
-            return BadRequest(new{ 
-                Message = "Something went wrong",
-            });
-        }
-
-        return Ok(personUpdated);
+        return Ok(updatedPerson);
     }
 
     [HttpDelete("{id}")]
