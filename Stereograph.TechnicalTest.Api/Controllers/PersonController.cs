@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Stereograph.TechnicalTest.Api.Entities;
 using Stereograph.TechnicalTest.Api.Repositories;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace Stereograph.TechnicalTest.Api.Controllers;
@@ -32,10 +35,12 @@ public class PersonController : ControllerBase
 
         if (person == null)
         {
-            return BadRequest(new
-            {
-                Message = $"Person with id: {id} was not found"
-            });
+            return BadRequest($"Person with id: {id} was not found");
+        }
+
+        if (person.Id != id)
+        {
+            return BadRequest("Something went wrong");
         }
 
         return Ok(person);
@@ -58,16 +63,17 @@ public class PersonController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] Person person)
     {
-        //Person personFromDb = await _repository.Get(person => person.Id == id);
-        //if (personFromDb == null)
-        //    return NotFound();
+        Person personFromDb = await _repository.Get(person => person.Id == id);
+        if (personFromDb == null)
+            return NotFound();
+
 
         if (person.Id != id)
             return BadRequest();
 
         Person updatedPerson = await _repository.Update(person);
 
-        if(updatedPerson == null)
+        if (updatedPerson == null)
             return BadRequest();
 
         return Ok(updatedPerson);

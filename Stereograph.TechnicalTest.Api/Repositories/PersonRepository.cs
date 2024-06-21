@@ -47,7 +47,8 @@ namespace Stereograph.TechnicalTest.Api.Repositories
 
         public async Task<Person> Get(Expression<Func<Person, bool>> predicate)
         {
-            return await _context.Persons.FirstOrDefaultAsync(predicate);
+            return await _context.Persons.AsNoTracking().FirstOrDefaultAsync(predicate);
+
         }
 
         public async Task<List<Person>> GetAll()
