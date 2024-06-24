@@ -1,8 +1,8 @@
 # Comment lancer le projet
 
-1. git clone git@github.com:RemiDebruyne/test-csharp-api.git
-2. cd .\test-csharp-api\Stereograph.TechnicalTest.Api\
-3. dotnet run
+1. `git clone git@github.com:RemiDebruyne/test-csharp-api.git`
+2. `cd .\test-csharp-api\Stereograph.TechnicalTest.Api\`
+3. `dotnet run`
 4. ouvrez l'un des liens suivants :
    - https://localhost:7163/swagger
    - http://localhost:5163/swagger
